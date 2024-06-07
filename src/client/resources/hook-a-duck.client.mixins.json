@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.seacroak.hook_a_duck.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"ExampleClientMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

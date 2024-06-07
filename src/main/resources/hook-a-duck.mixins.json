@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.seacroak.hook_a_duck.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"ExampleMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

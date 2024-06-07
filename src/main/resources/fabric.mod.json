@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "hook-a-duck",
+	"version": "${version}",
+	"name": "Hook a Duck",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/hook-a-duck/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.seacroak.hook_a_duck.HookADuck"
+		],
+		"client": [
+			"com.seacroak.hook_a_duck.HookADuckClient"
+		],
+		"fabric-datagen": [
+			"com.seacroak.hook_a_duck.HookADuckDataGenerator"
+		]
+	},
+	"mixins": [
+		"hook-a-duck.mixins.json",
+		{
+			"config": "hook-a-duck.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21-",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
