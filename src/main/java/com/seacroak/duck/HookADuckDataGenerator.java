@@ -1,4 +1,4 @@
-package com.seacroak.hook_a_duck;
+package com.seacroak.duck;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;

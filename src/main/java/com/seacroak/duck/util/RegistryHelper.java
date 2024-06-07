@@ -1,4 +1,4 @@
-package com.seacroak.hook_a_duck.util;
+package com.seacroak.duck.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -7,7 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-import static com.seacroak.hook_a_duck.Constants.DUCK_ID;
+import static com.seacroak.duck.Constants.DUCK_ID;
 
 public class RegistryHelper {
 

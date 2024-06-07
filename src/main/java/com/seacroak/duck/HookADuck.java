@@ -1,15 +1,6 @@
-package com.seacroak.hook_a_duck;
+package com.seacroak.duck;
 
-import com.seacroak.hook_a_duck.util.RegistryHelper;
 import net.fabricmc.api.ModInitializer;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import static com.seacroak.hook_a_duck.Constants.DUCK_ID;
 
 public class HookADuck implements ModInitializer {
     // This logger is used to write text to the console and the log file.

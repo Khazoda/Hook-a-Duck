@@ -1,14 +1,12 @@
-package com.seacroak.hook_a_duck.registry;
+package com.seacroak.duck.registry;
 
-import com.seacroak.hook_a_duck.util.RegistryHelper;
+import com.seacroak.duck.util.RegistryHelper;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.BlockSoundGroup;
 
 public class MainRegistry {
   static final Item.Settings defaultItemSettings = new Item.Settings().maxCount(64);

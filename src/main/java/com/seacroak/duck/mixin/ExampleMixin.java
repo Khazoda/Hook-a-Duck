@@ -1,4 +1,4 @@
-package com.seacroak.hook_a_duck.mixin;
+package com.seacroak.duck.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

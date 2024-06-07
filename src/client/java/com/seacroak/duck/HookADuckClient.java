@@ -1,4 +1,4 @@
-package com.seacroak.hook_a_duck;
+package com.seacroak.duck;
 
 import net.fabricmc.api.ClientModInitializer;
 

@@ -1,9 +1,9 @@
-package com.seacroak.hook_a_duck.util;
+package com.seacroak.duck.util;
 
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-import static com.seacroak.hook_a_duck.Constants.DUCK_ID;
+import static com.seacroak.duck.Constants.DUCK_ID;
 
 public class GenericUtils {
   @NotNull
