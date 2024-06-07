@@ -31,7 +31,7 @@ public class MainRegistry {
       FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, DuckEntity::new).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build());
 
   public static void init() {
-    FabricDefaultAttributeRegistry.register(DUCK_ENTITY, DuckEntity.createMobAttributes());
+    FabricDefaultAttributeRegistry.register(DUCK_ENTITY, DuckEntity.createDuckAttributes());
 
   }
 
