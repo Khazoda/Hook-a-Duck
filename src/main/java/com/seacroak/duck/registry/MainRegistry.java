@@ -1,7 +1,9 @@
 package com.seacroak.duck.registry;
-
+import gay.lemmaeof.terrifictickets.TerrificTickets;
+import gay.lemmaeof.terrifictickets.component.PasscardComponent;
 import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.util.RegistryHelper;
+import gay.lemmaeof.terrifictickets.item.PasscardItem;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
@@ -17,6 +19,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 import static com.seacroak.duck.util.RegistryHelper.newID;
+import static gay.lemmaeof.terrifictickets.TerrificTickets.PASSCARD_COMPONENT;
 
 public class MainRegistry {
   static final Item.Settings defaultItemSettings = new Item.Settings().maxCount(64);
