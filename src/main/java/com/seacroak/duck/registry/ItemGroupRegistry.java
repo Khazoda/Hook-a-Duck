@@ -1,12 +1,9 @@
 package com.seacroak.duck.registry;
 
-import gay.lemmaeof.terrifictickets.TerrificTickets;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.component.type.FoodComponent;
+import net.minecraft.item.*;
 import net.minecraft.text.Text;
 
 
@@ -18,7 +15,8 @@ public class ItemGroupRegistry {
         .entries((displayContext, entries) -> {
           entries.add(new ItemStack(MainRegistry.EXAMPLE_ITEM));
           entries.add(new ItemStack(MainRegistry.DUCK_ROD));
-          entries.add(new ItemStack(TerrificTickets.PASSCARD));
+          entries.add(new ItemStack(MainRegistry.POPCORN));
+
         }).build();
   }
 }
