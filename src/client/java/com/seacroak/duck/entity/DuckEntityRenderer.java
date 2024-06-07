@@ -14,7 +14,7 @@ import java.util.Map;
 public class DuckEntityRenderer extends MobEntityRenderer<DuckEntity, DuckEntityModel<DuckEntity>> {
 
   private static final Map<DuckRarity, Identifier> TEXTURES = Util.make(Maps.newEnumMap(DuckRarity.class), (map) -> {
-    map.put(DuckRarity.DEFAULT, GenericUtils.ID("textures/entity/popcorn_texture.png"));
+    map.put(DuckRarity.DEFAULT, GenericUtils.ID("textures/entity/duck_texture.png"));
     map.put(DuckRarity.GREEN, GenericUtils.ID("textures/entity/duck_green_texture.png"));
     map.put(DuckRarity.BLUE, GenericUtils.ID("textures/entity/duck_blue_texture.png"));
     map.put(DuckRarity.PURPLE, GenericUtils.ID("textures/entity/duck_purple_texture.png"));
