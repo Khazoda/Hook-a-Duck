@@ -29,7 +29,6 @@ import org.joml.Vector3f;
 
 public class DuckEntity extends WaterCreatureEntity implements VariantHolder<DuckRarity> {
   private static final TrackedData<Integer> RARITY = DataTracker.registerData(DuckEntity.class, TrackedDataHandlerRegistry.INTEGER);
-  public static final ParticleEffect GOLD_PARTICLE_EFFECT = new DustParticleEffect(new Vector3f(235, 222, 52), 1.0f);
 
   public DuckEntity(EntityType<? extends WaterCreatureEntity> entityType, World world) {
     super(entityType, world);
@@ -94,7 +93,7 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
     super.tickMovement();
     if(this.getVariant() == DuckRarity.GOLD) {
       this.getWorld().addParticle(ParticleTypes.ENCHANT, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
-      this.getWorld().addParticle(GOLD_PARTICLE_EFFECT, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
+      this.getWorld().addParticle(ParticleTypes.GLOW, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
     }
   }
 
