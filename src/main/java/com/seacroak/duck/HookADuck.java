@@ -15,10 +15,12 @@ public class HookADuck implements ModInitializer {
 
   @Override
   public void onInitialize() {
+    Constants.DUCK_LOGGER.info("Hooking a duck...");
+
     Registry.register(Registries.ITEM_GROUP, GenericUtils.ID(DUCK_ID), DUCK_ITEMGROUP);
 
     MainRegistry.init();
 
-    Constants.DUCK_LOGGER.info("[Hooking a Duck] The ducks are ready!");
+    Constants.DUCK_LOGGER.info("The ducks are ready!");
   }
 }
