@@ -17,6 +17,6 @@ public class HookADuck implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("[Hook a Duck] The ducks are ready!");
+		LOGGER.info("[Hooking a Duck] The ducks are ready!");
 	}
 }
