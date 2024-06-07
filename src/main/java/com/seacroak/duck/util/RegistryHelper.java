@@ -1,6 +1,9 @@
 package com.seacroak.duck.util;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -57,4 +60,5 @@ public class RegistryHelper {
     return Registry.register(Registries.ITEM, newID(name), item);
 
   }
+
 }
