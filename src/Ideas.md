@@ -4,4 +4,5 @@
 - Hooking Interaction > Kills entity
 - Particles on Golden duck
 - Rarity denotation
+- Add duck entity sounds
 
