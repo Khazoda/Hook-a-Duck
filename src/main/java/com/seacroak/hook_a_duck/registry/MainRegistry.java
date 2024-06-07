@@ -16,7 +16,7 @@ public class MainRegistry {
 
   public static final Item EXAMPLE_ITEM = Registry.register(Registries.ITEM, ("example_item"), new Item(defaultItemSettings));
   public static final Block EXAMPLE_BLOCK = registerBlock("example_block",new Block(AbstractBlock.Settings.create().strength(2.5f)),defaultItemSettings);
-
+  public static final Item DUCK_ROD = registerItem("duck_rod");
   /* Registration Functions */
   private static <B extends Block> B registerBlock(String name, B block, Item.Settings itemSettings) {
     return RegistryHelper.registerBlock(name, block, itemSettings);
