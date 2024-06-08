@@ -1,6 +1,8 @@
 package com.seacroak.duck.registry;
 
 import com.seacroak.duck.Constants;
+import com.seacroak.duck.item.DuckSword;
+import com.seacroak.duck.item.FoodItem;
 import com.seacroak.duck.util.GenericUtils.*;
 import gay.lemmaeof.terrifictickets.TerrificTickets;
 import gay.lemmaeof.terrifictickets.component.PasscardComponent;
@@ -20,6 +22,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -47,7 +51,15 @@ public class MainRegistry {
   public static final Item LOLLY = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_pop"),
           new Item(new Item.Settings().food(MainRegistry.SMALL_FOOD)));
   public static final Item CORNDUCK = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_cornduck"),
-          new Item(new Item.Settings().food(MainRegistry.BIG_FOOD)));
+          new FoodItem(new Item.Settings().food(MainRegistry.BIG_FOOD), Items.STICK));
+
+
+  /*Tools*/
+  public static final Item DUCK_SWORD = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
+  public static final Item DUCK_SWORD_RED = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword_red"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
+  public static final Item DUCK_SWORD_GREEN = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword_green"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
+  public static final Item DUCK_SWORD_BLUE = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword_blue"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
+  public static final Item DUCK_SWORD_PURPLE = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword_purple"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
 
 
   /* Entities */

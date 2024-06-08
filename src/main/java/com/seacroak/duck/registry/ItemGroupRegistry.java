@@ -19,6 +19,11 @@ public class ItemGroupRegistry {
           entries.add(new ItemStack(MainRegistry.POPCORN));
           entries.add(new ItemStack(MainRegistry.LOLLY));
           entries.add(new ItemStack(MainRegistry.CORNDUCK));
+          entries.add(new ItemStack(MainRegistry.DUCK_SWORD));
+          entries.add(new ItemStack(MainRegistry.DUCK_SWORD_RED));
+          entries.add(new ItemStack(MainRegistry.DUCK_SWORD_GREEN));
+          entries.add(new ItemStack(MainRegistry.DUCK_SWORD_BLUE));
+          entries.add(new ItemStack(MainRegistry.DUCK_SWORD_PURPLE));
 
         }).build();
   }
