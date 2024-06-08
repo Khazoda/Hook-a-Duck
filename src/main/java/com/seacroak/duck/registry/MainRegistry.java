@@ -40,9 +40,13 @@ public class MainRegistry {
   public static final Item DUCK_ROD = registerItem("duck_rod");
 
   /* Consumables */
-  public static final FoodComponent POPCORN_FOOD = (new FoodComponent.Builder()).nutrition(4).saturationModifier(0.3F).build();
+  public static final FoodComponent BIG_FOOD = (new FoodComponent.Builder()).nutrition(8).saturationModifier(0.3F).build();
+  public static final FoodComponent SMALL_FOOD = (new FoodComponent.Builder()).nutrition(4).saturationModifier(0.3F).build();
   public static final Item POPCORN = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "popcorn"),
-      new Item(new Item.Settings().food(MainRegistry.POPCORN_FOOD)));
+      new Item(new Item.Settings().food(MainRegistry.BIG_FOOD)));
+  public static final Item LOLLY = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_pop"),
+          new Item(new Item.Settings().food(MainRegistry.SMALL_FOOD)));
+
 
   /* Entities */
   public static final EntityType<DuckEntity> DUCK_ENTITY = Registry.register(

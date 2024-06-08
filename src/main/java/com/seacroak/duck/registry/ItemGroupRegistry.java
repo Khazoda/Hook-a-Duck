@@ -17,6 +17,7 @@ public class ItemGroupRegistry {
           entries.add(new ItemStack(MainRegistry.EXAMPLE_ITEM));
           entries.add(new ItemStack(MainRegistry.DUCK_ROD));
           entries.add(new ItemStack(MainRegistry.POPCORN));
+          entries.add(new ItemStack(MainRegistry.LOLLY));
 
         }).build();
   }
