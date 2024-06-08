@@ -1,6 +1,7 @@
 package com.seacroak.duck.entity;
 
 import com.seacroak.duck.util.DuckRarity;
+import gay.lemmaeof.terrifictickets.TerrificTickets;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -8,6 +9,7 @@ import net.minecraft.entity.VariantHolder;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -49,7 +51,7 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
 
   public static DefaultAttributeContainer.Builder createDuckAttributes() {
     return MobEntity.createMobAttributes()
-        .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+        .add(EntityAttributes.GENERIC_MAX_HEALTH, 4)
         .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
         .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2)
         .add(EntityAttributes.GENERIC_ARMOR, 0.5f);
@@ -95,6 +97,14 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
       this.getWorld().addParticle(ParticleTypes.ENCHANT, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
       this.getWorld().addParticle(ParticleTypes.GLOW, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
     }
+  }
+
+  @Override
+  public void onDeath(DamageSource damageSource) {
+    for (int i = 0; i < 5; i++) {
+      dropItem(TerrificTickets.TICKET);
+    }
+    super.onDeath(damageSource);
   }
 
   @Nullable
