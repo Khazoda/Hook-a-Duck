@@ -3,24 +3,16 @@ package com.seacroak.duck.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.registry.MainRegistry;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
+import gay.lemmaeof.terrifictickets.TerrificTickets;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracked;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.scoreboard.ScoreHolder;
-import net.minecraft.server.command.CommandOutput;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Nameable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.entity.EntityLike;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -41,22 +33,38 @@ public abstract class FishingBobberEntityMixin extends Entity {
   private void init(CallbackInfo info, @Local(ordinal = 1) Entity entity2) {
 
     if (!this.getWorld().isClient()) {
+      ServerWorld serverWorld = (ServerWorld) this.getWorld();
+
       if (hookedEntity != null) {
         if (hookedEntity.getType() == MainRegistry.DUCK_ENTITY) {
-          Vec3d vec3d = new Vec3d(entity2.getX() - this.getX(), entity2.getY() - (this.getY() - 2), entity2.getZ() - this.getZ()).multiply(0.5);
-          if (hookedEntity != null) {
-            hookedEntity.setVelocity(hookedEntity.getVelocity().add(vec3d));
+          DuckEntity hookedDuckEntity = (DuckEntity) hookedEntity;
+          if (hookedDuckEntity != null) {
+            this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, 0.55F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+            for (int i = 0; i < 10; i++) {
+              serverWorld.spawnParticles(ParticleTypes.GLOW, this.getX(), this.getY() + 0.1, this.getZ(), (int) (1.0F + this.getWidth() * 20.0F), (double) this.getWidth(), 0.0, (double) this.getWidth(), 0.2F);
+            }
 
-//            hookedEntity.remove(RemovalReason.DISCARDED);
+            int ticketPayout = 0;
+            switch (hookedDuckEntity.getVariant()) {
+              case DEFAULT -> ticketPayout = 5;
+              case GREEN -> ticketPayout = 10;
+              case BLUE -> ticketPayout = 15;
+              case PURPLE -> ticketPayout = 25;
+              case RED -> ticketPayout = 45;
+              case GOLD -> ticketPayout = 100;
+            }
+
+            double d = entity2.getX() - this.getX();
+            double e = entity2.getY() - this.getY();
+            double f = entity2.getZ() - this.getZ();
+
+            hookedDuckEntity.setSpewParams(ticketPayout,d,e,f);
+            hookedDuckEntity.shouldSpew = true;
+
+//            hookedDuckEntity.remove(RemovalReason.KILLED);
           }
         }
       }
     }
-    this.playSound(SoundEvents.BLOCK_BELL_USE, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
-    for (int i = 0; i < 10; i++) {
-      this.getWorld().addParticle(ParticleTypes.ENCHANT, this.getX(), this.getY(), this.getZ(), 0, 0.1f, 0);
-      this.getWorld().addParticle(ParticleTypes.POOF, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
-    }
-
   }
 }
