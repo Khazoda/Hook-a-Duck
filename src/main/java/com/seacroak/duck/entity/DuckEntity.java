@@ -1,5 +1,6 @@
 package com.seacroak.duck.entity;
 
+import com.seacroak.duck.registry.MainRegistry;
 import com.seacroak.duck.util.DuckRarity;
 import gay.lemmaeof.terrifictickets.TerrificTickets;
 import net.minecraft.entity.EntityData;
@@ -95,7 +96,7 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
     super.tickMovement();
     if(this.getVariant() == DuckRarity.GOLD) {
       this.getWorld().addParticle(ParticleTypes.ENCHANT, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
-      this.getWorld().addParticle(ParticleTypes.GLOW, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
+      this.getWorld().addParticle(MainRegistry.RARE_SPARKLE, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
     }
   }
 
