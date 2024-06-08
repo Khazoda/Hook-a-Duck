@@ -46,6 +46,8 @@ public class MainRegistry {
       new Item(new Item.Settings().food(MainRegistry.BIG_FOOD)));
   public static final Item LOLLY = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_pop"),
           new Item(new Item.Settings().food(MainRegistry.SMALL_FOOD)));
+  public static final Item CORNDUCK = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_cornduck"),
+          new Item(new Item.Settings().food(MainRegistry.BIG_FOOD)));
 
 
   /* Entities */
