@@ -1,24 +1,16 @@
 package com.seacroak.duck.registry;
 
 import com.seacroak.duck.Constants;
-import com.seacroak.duck.entity.DuckBoats;
+import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.item.DuckSword;
 import com.seacroak.duck.item.FoodItem;
-import com.seacroak.duck.util.GenericUtils.*;
-import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
-import gay.lemmaeof.terrifictickets.TerrificTickets;
-import gay.lemmaeof.terrifictickets.component.PasscardComponent;
-import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.util.RegistryHelper;
-import gay.lemmaeof.terrifictickets.item.PasscardItem;
-import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.component.type.FoodComponent;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -33,7 +25,6 @@ import net.minecraft.util.Identifier;
 
 import static com.seacroak.duck.util.GenericUtils.ID;
 import static com.seacroak.duck.util.RegistryHelper.newID;
-import static gay.lemmaeof.terrifictickets.TerrificTickets.PASSCARD_COMPONENT;
 
 public class MainRegistry {
   static final Item.Settings defaultItemSettings = new Item.Settings().maxCount(64);
@@ -63,8 +54,6 @@ public class MainRegistry {
   public static final Item DUCK_SWORD_BLUE = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword_blue"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
   public static final Item DUCK_SWORD_PURPLE = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword_purple"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
 
-  /*Boat */
-  public static final Item DUCK_BOAT = TerraformBoatItemHelper.registerBoatItem(DuckBoats.DUCK_BOAT_ID, DuckBoats.DUCK_BOAT_KEY, false);
 
   /* Entities */
   public static final EntityType<DuckEntity> DUCK_ENTITY = Registry.register(
@@ -74,6 +63,7 @@ public class MainRegistry {
 
   /* Particles */
   public static final SimpleParticleType RARE_SPARKLE = Registry.register(Registries.PARTICLE_TYPE, ID("rare_sparkle"), FabricParticleTypes.simple());
+  public static final SimpleParticleType DUCKS = Registry.register(Registries.PARTICLE_TYPE, ID("ducks"), FabricParticleTypes.simple());
 
 
   public static void init() {

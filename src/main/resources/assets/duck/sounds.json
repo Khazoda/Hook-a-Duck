@@ -1,0 +1,12 @@
+{
+  "squeak": {
+    "sounds": [
+      "duck:squeak"
+    ]
+  },
+  "pop": {
+    "sounds": [
+      "duck:pop"
+    ]
+  }
+}
