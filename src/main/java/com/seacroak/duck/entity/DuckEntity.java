@@ -21,6 +21,7 @@ import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -163,6 +164,7 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
       for (int i = 0; i < 2; i++) {
         dropItem(TerrificTickets.TICKET);
       }
+      dropItem(Items.DEAD_BUSH);
       if (damageSource.isOf(DamageTypes.PLAYER_ATTACK)) {
         damageSource.getAttacker().sendMessage(Text.literal("Try hooking the duck instead.."));
       }
