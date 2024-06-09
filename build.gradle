@@ -17,6 +17,10 @@ repositories {
 			includeGroup 'gay.lemmaeof'
 		}
 	}
+	maven {
+		name = 'TerraformersMC'
+		url = 'https://maven.terraformersmc.com/'
+	}
 }
 
 loom {
@@ -45,6 +49,9 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modImplementation include("gay.lemmaeof:terrifictickets:0.1.1+1.21-pre3")
+
+	modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:11.0.0-alpha.1"
+	include "com.terraformersmc.terraform-api:terraform-wood-api-v1:11.0.0-alpha.1"
 
 }
 
@@ -91,15 +98,8 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
-		maven {url "https://maven.shedaniel.me"}
-		maven {
-			name = 'TerraformersMC'
-			url = 'https://maven.terraformersmc.com/'
+
 		}
 	}
-}
-dependencies {
-	modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:7.0.1"
-	include "com.terraformrsmc.terraform-api:terraform-wood-api-v1:7.0.1"
 
-}
+

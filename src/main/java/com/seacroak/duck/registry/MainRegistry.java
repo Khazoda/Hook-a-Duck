@@ -1,9 +1,11 @@
 package com.seacroak.duck.registry;
 
 import com.seacroak.duck.Constants;
+import com.seacroak.duck.entity.DuckBoats;
 import com.seacroak.duck.item.DuckSword;
 import com.seacroak.duck.item.FoodItem;
 import com.seacroak.duck.util.GenericUtils.*;
+import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import gay.lemmaeof.terrifictickets.TerrificTickets;
 import gay.lemmaeof.terrifictickets.component.PasscardComponent;
 import com.seacroak.duck.entity.DuckEntity;
@@ -61,6 +63,8 @@ public class MainRegistry {
   public static final Item DUCK_SWORD_BLUE = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword_blue"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
   public static final Item DUCK_SWORD_PURPLE = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_sword_purple"), new DuckSword(ToolMaterials.WOOD,new Item.Settings().attributeModifiers(DuckSword.createAttributeModifiers(ToolMaterials.WOOD,0,-1f))));
 
+  /*Boat */
+  public static final Item DUCK_BOAT = TerraformBoatItemHelper.registerBoatItem(DuckBoats.DUCK_BOAT_ID, DuckBoats.DUCK_BOAT_KEY, false);
 
   /* Entities */
   public static final EntityType<DuckEntity> DUCK_ENTITY = Registry.register(
