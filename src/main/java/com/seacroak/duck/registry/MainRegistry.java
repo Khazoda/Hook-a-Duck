@@ -1,9 +1,9 @@
 package com.seacroak.duck.registry;
 
 import com.seacroak.duck.Constants;
+import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.item.DuckSword;
 import com.seacroak.duck.item.FoodItem;
-import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.util.RegistryHelper;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -61,7 +61,7 @@ public class MainRegistry {
   public static final EntityType<DuckEntity> DUCK_ENTITY = Registry.register(
       Registries.ENTITY_TYPE,
       newID("duck"),
-      FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, DuckEntity::new).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build());
+      FabricEntityTypeBuilder.create(SpawnGroup.WATER_AMBIENT, DuckEntity::new).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build());
 
   /* Particles */
   public static final SimpleParticleType RARE_SPARKLE = Registry.register(Registries.PARTICLE_TYPE, ID("rare_sparkle"), FabricParticleTypes.simple());
@@ -69,7 +69,6 @@ public class MainRegistry {
 
   public static void init() {
     FabricDefaultAttributeRegistry.register(DUCK_ENTITY, DuckEntity.createDuckAttributes());
-
   }
 
 

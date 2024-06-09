@@ -5,9 +5,12 @@ import com.seacroak.duck.registry.MainRegistry;
 import com.seacroak.duck.registry.SoundRegistry;
 import com.seacroak.duck.util.GenericUtils;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.tag.BiomeTags;
 
 import static com.seacroak.duck.Constants.DUCK_ID;
 
@@ -23,8 +26,10 @@ public class HookADuck implements ModInitializer {
     MainRegistry.init();
     SoundRegistry.init();
 
+    /* Populate biomes with DUCKS */
+    BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_RIVER).or(BiomeSelectors.tag(BiomeTags.IS_OCEAN)), MainRegistry.DUCK_ENTITY.getSpawnGroup(), MainRegistry.DUCK_ENTITY, 10, 1, 5);
+
+
     Constants.DUCK_LOGGER.info("The ducks are ready!");
-
-
   }
 }

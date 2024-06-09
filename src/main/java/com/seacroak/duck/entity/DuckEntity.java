@@ -182,31 +182,28 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
   public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
     Random random = world.getRandom();
     DuckRarity duckRarity = DuckRarity.DEFAULT;
-    if (entityData instanceof DuckData) {
-      duckRarity = ((DuckData) entityData).rarity;
-    } else {
-      int randomRarityInt = random.nextInt(100);
-      if (randomRarityInt <= 70) {
-        duckRarity = DuckRarity.DEFAULT;
-      } else if (randomRarityInt <= 85) {
-        if (random.nextBetween(0, 1) == 0) {
-          duckRarity = DuckRarity.GREEN;
-        } else {
-          duckRarity = DuckRarity.BLUE;
-        }
-      } else if (randomRarityInt <= 95) {
-        if (random.nextBetween(0, 1) == 0) {
-          duckRarity = DuckRarity.PURPLE;
-        } else {
-          duckRarity = DuckRarity.RED;
-        }
-      } else if (randomRarityInt <= 100) {
-        duckRarity = DuckRarity.GOLD;
-      }
 
-//      duckRarity = Util.getRandom(DuckRarity.values(), random);
-      entityData = new DuckData(duckRarity);
+    int randomRarityInt = random.nextInt(100);
+
+    if (randomRarityInt <= 70) {
+      duckRarity = DuckRarity.DEFAULT;
+    } else if (randomRarityInt <= 85) {
+      if (random.nextBetween(0, 1) == 0) {
+        duckRarity = DuckRarity.GREEN;
+      } else {
+        duckRarity = DuckRarity.BLUE;
+      }
+    } else if (randomRarityInt <= 95) {
+      if (random.nextBetween(0, 1) == 0) {
+        duckRarity = DuckRarity.PURPLE;
+      } else {
+        duckRarity = DuckRarity.RED;
+      }
+    } else if (randomRarityInt <= 100) {
+      duckRarity = DuckRarity.GOLD;
     }
+    entityData = new DuckData(duckRarity);
+
     this.setDuckRarity(duckRarity);
 
     float duckSize = random.nextFloat() * 2f;
@@ -218,7 +215,6 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
       case GOLD -> duckSizeMultiplier = 2f;
     }
     Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.GENERIC_SCALE)).setBaseValue(Math.clamp(duckSizeMultiplier * duckSize, 0.75, 2));
-    this.setCustomName(Text.literal(String.valueOf(duckSize)));
 
     return super.initialize(world, difficulty, spawnReason, entityData);
   }
