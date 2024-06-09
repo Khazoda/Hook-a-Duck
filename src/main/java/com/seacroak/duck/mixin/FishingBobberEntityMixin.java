@@ -7,6 +7,7 @@ import gay.lemmaeof.terrifictickets.TerrificTickets;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
@@ -33,16 +34,12 @@ public abstract class FishingBobberEntityMixin extends Entity {
   private void init(CallbackInfo info, @Local(ordinal = 1) Entity entity2) {
 
     if (!this.getWorld().isClient()) {
-      ServerWorld serverWorld = (ServerWorld) this.getWorld();
 
       if (hookedEntity != null) {
         if (hookedEntity.getType() == MainRegistry.DUCK_ENTITY) {
           DuckEntity hookedDuckEntity = (DuckEntity) hookedEntity;
           if (hookedDuckEntity != null) {
             this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, 0.55F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
-            for (int i = 0; i < 10; i++) {
-              serverWorld.spawnParticles(ParticleTypes.GLOW, this.getX(), this.getY() + 0.1, this.getZ(), (int) (1.0F + this.getWidth() * 20.0F), (double) this.getWidth(), 0.0, (double) this.getWidth(), 0.2F);
-            }
 
             int ticketPayout = 0;
             switch (hookedDuckEntity.getVariant()) {
@@ -58,7 +55,7 @@ public abstract class FishingBobberEntityMixin extends Entity {
             double e = entity2.getY() - this.getY();
             double f = entity2.getZ() - this.getZ();
 
-            hookedDuckEntity.setSpewParams(ticketPayout,d,e,f);
+            hookedDuckEntity.setSpewParams(ticketPayout, (PlayerEntity) entity2, d,e,f);
             hookedDuckEntity.shouldSpew = true;
 
 //            hookedDuckEntity.remove(RemovalReason.KILLED);
