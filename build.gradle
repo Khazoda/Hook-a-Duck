@@ -17,11 +17,7 @@ repositories {
             includeGroup 'gay.lemmaeof'
         }
     }
-//    maven { url "https://maven.shedaniel.me" }
-//    maven {
-//        name = 'TerraformersMC'
-//        url = 'https://maven.terraformersmc.com/'
-//    }
+
 }
 
 loom {
@@ -51,7 +47,6 @@ dependencies {
 
     modImplementation include("gay.lemmaeof:terrifictickets:0.1.1+1.21-pre3")
 
-//    modImplementation include("com.terraformersmc.terraform-api:terraform-wood-api-v1:7.0.1")
 
 }
 

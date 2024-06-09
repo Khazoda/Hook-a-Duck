@@ -25,5 +25,6 @@ public class HookADuckClient implements ClientModInitializer {
     ParticleFactoryRegistry.getInstance().register(MainRegistry.RARE_SPARKLE, FlameParticle.Factory::new);
     ParticleFactoryRegistry.getInstance().register(MainRegistry.DUCKS, FlameParticle.Factory::new);
 
+
   }
 }

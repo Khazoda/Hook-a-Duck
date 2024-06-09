@@ -24,6 +24,7 @@ public class ItemGroupRegistry {
           entries.add(new ItemStack(MainRegistry.DUCK_SWORD_PURPLE));
 
 
+
         }).build();
   }
 }

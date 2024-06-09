@@ -24,5 +24,7 @@ public class HookADuck implements ModInitializer {
     SoundRegistry.init();
 
     Constants.DUCK_LOGGER.info("The ducks are ready!");
+
+
   }
 }
