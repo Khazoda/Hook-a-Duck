@@ -91,5 +91,15 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
+		maven {url "https://maven.shedaniel.me"}
+		maven {
+			name = 'TerraformersMC'
+			url = 'https://maven.terraformersmc.com/'
+		}
 	}
+}
+dependencies {
+	modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:7.0.1"
+	include "com.terraformrsmc.terraform-api:terraform-wood-api-v1:7.0.1"
+
 }
