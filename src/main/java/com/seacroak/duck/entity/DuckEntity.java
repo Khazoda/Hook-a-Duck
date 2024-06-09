@@ -1,10 +1,14 @@
 package com.seacroak.duck.entity;
 
 import com.seacroak.duck.registry.MainRegistry;
+import com.seacroak.duck.registry.SoundRegistry;
 import com.seacroak.duck.util.DuckRarity;
 import gay.lemmaeof.terrifictickets.TerrificTickets;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.SwimAroundGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -17,20 +21,15 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 public class DuckEntity extends WaterCreatureEntity implements VariantHolder<DuckRarity> {
   private static final TrackedData<Integer> RARITY = DataTracker.registerData(DuckEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -97,7 +96,7 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
   public void setVariant(DuckRarity variant) {
   }
 
-  public void setSpewParams(int ticketPayout,PlayerEntity hooker, double d, double e, double f) {
+  public void setSpewParams(int ticketPayout, PlayerEntity hooker, double d, double e, double f) {
     this.ticketPayout = ticketPayout;
     this.hooker = hooker;
     this.d = d;
@@ -111,6 +110,8 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
     ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), fiveTickets);
     itemEntity.setVelocity(d * 0.1, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08, f * 0.1);
     this.getWorld().spawnEntity(itemEntity);
+    this.playSound(SoundRegistry.POP, 1F, 1.0F + ((float) ticketsPaidOut / 5) / 10);
+
 
     this.d = hooker.getX() - this.getX();
     this.e = hooker.getY() - this.getY();
@@ -124,11 +125,11 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
       if (this.shouldSpew) {
         spew();
         ticketsPaidOut += 5;
-        if (ticketsPaidOut >= ticketPayout){
+        if (ticketsPaidOut >= ticketPayout) {
           this.shouldSpew = false;
           ServerWorld serverWorld = (ServerWorld) this.getWorld();
           for (int i = 0; i < 10; i++) {
-            serverWorld.spawnParticles(ParticleTypes.GLOW, this.getX(), this.getY() + 0.1, this.getZ(), (int) (1.0F + this.getWidth() * 20.0F), (double) this.getWidth(), 0.0, (double) this.getWidth(), 0.2F);
+            serverWorld.spawnParticles(ParticleTypes.GLOW, this.getX(), this.getY() + 0.1, this.getZ(), (int) (1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F);
           }
           this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, 0.55F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
           this.remove(RemovalReason.KILLED);
@@ -162,9 +163,9 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
       this.getWorld().addParticle(ParticleTypes.POOF, this.getParticleX(0.6), this.getRandomBodyY(), this.getParticleZ(0.6), 0.0, 0.0, 0.0);
       this.getWorld().addParticle(
           ParticleTypes.BUBBLE_POP,
-          (double) this.getPos().getX() + 0.13125F + 0.7375F * (double) random.nextFloat(),
-          (double) this.getPos().getY() + 0.13125F + (double) random.nextFloat() * (1.0 - 0.13125F),
-          (double) this.getPos().getZ() + 0.13125F + 0.7375F * (double) random.nextFloat(),
+          this.getPos().getX() + 0.13125F + 0.7375F * (double) random.nextFloat(),
+          this.getPos().getY() + 0.13125F + (double) random.nextFloat() * (1.0 - 0.13125F),
+          this.getPos().getZ() + 0.13125F + 0.7375F * (double) random.nextFloat(),
           0,
           0, 0
       );
