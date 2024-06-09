@@ -3,16 +3,11 @@ package com.seacroak.duck.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.registry.MainRegistry;
-import gay.lemmaeof.terrifictickets.TerrificTickets;
+import com.seacroak.duck.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,7 +34,7 @@ public abstract class FishingBobberEntityMixin extends Entity {
         if (hookedEntity.getType() == MainRegistry.DUCK_ENTITY) {
           DuckEntity hookedDuckEntity = (DuckEntity) hookedEntity;
           if (hookedDuckEntity != null) {
-            this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, 0.55F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+            this.playSound(SoundRegistry.SQUEAK, 0.55F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
 
             int ticketPayout = 0;
             switch (hookedDuckEntity.getVariant()) {

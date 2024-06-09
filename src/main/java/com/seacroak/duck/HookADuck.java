@@ -2,6 +2,7 @@ package com.seacroak.duck;
 
 import com.seacroak.duck.registry.ItemGroupRegistry;
 import com.seacroak.duck.registry.MainRegistry;
+import com.seacroak.duck.registry.SoundRegistry;
 import com.seacroak.duck.util.GenericUtils;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.ItemGroup;
@@ -20,6 +21,7 @@ public class HookADuck implements ModInitializer {
     Registry.register(Registries.ITEM_GROUP, GenericUtils.ID(DUCK_ID), DUCK_ITEMGROUP);
 
     MainRegistry.init();
+    SoundRegistry.init();
 
     Constants.DUCK_LOGGER.info("The ducks are ready!");
   }
