@@ -1,6 +1,5 @@
 package com.seacroak.duck;
 
-import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.entity.DuckEntityModel;
 import com.seacroak.duck.entity.DuckEntityRenderer;
 import com.seacroak.duck.registry.MainRegistry;
@@ -11,8 +10,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.util.Identifier;
 
 import static com.seacroak.duck.registry.MainRegistry.DUCK_ENTITY;
 
@@ -26,6 +23,7 @@ public class HookADuckClient implements ClientModInitializer {
     EntityModelLayerRegistry.registerModelLayer(MODEL_DUCK_LAYER, DuckEntityModel::getTexturedModelData);
 
     ParticleFactoryRegistry.getInstance().register(MainRegistry.RARE_SPARKLE, FlameParticle.Factory::new);
+    ParticleFactoryRegistry.getInstance().register(MainRegistry.DUCKS, FlameParticle.Factory::new);
 
   }
 }

@@ -3,7 +3,6 @@ package com.seacroak.duck.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.registry.MainRegistry;
-import com.seacroak.duck.registry.SoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,8 +33,6 @@ public abstract class FishingBobberEntityMixin extends Entity {
         if (hookedEntity.getType() == MainRegistry.DUCK_ENTITY) {
           DuckEntity hookedDuckEntity = (DuckEntity) hookedEntity;
           if (hookedDuckEntity != null) {
-            this.playSound(SoundRegistry.SQUEAK, 0.55F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
-
             int ticketPayout = 0;
             switch (hookedDuckEntity.getVariant()) {
               case DEFAULT -> ticketPayout = 5;
@@ -52,8 +49,6 @@ public abstract class FishingBobberEntityMixin extends Entity {
 
             hookedDuckEntity.setSpewParams(ticketPayout, (PlayerEntity) entity2, d,e,f);
             hookedDuckEntity.shouldSpew = true;
-
-//            hookedDuckEntity.remove(RemovalReason.KILLED);
           }
         }
       }

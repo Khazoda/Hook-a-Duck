@@ -23,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
@@ -128,10 +127,11 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
         if (ticketsPaidOut >= ticketPayout) {
           this.shouldSpew = false;
           ServerWorld serverWorld = (ServerWorld) this.getWorld();
-          for (int i = 0; i < 10; i++) {
-            serverWorld.spawnParticles(ParticleTypes.GLOW, this.getX(), this.getY() + 0.1, this.getZ(), (int) (1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F);
+          for (int i = 0; i < 5; i++) {
+            serverWorld.spawnParticles(ParticleTypes.POOF, this.getX(), this.getY() + 0.1, this.getZ(), (int) (1.0F + this.getWidth() * 20.0F), this.getWidth(), 0.0, this.getWidth(), 0.2F);
+            serverWorld.spawnParticles(MainRegistry.DUCKS, this.getX() + (this.random.nextFloat() - this.random.nextFloat()), this.getY() + 0.1, this.getZ() + (this.random.nextFloat() - this.random.nextFloat()), (int) (1.0F + this.getWidth() * 20.0F), this.getWidth() / 5, 0.0, this.getWidth() / 5, 0.05F);
           }
-          this.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, 0.55F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+          this.playSound(SoundRegistry.SQUEAK, 0.55F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
           this.remove(RemovalReason.KILLED);
         }
       }
