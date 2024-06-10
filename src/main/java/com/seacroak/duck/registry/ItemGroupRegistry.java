@@ -1,9 +1,8 @@
 package com.seacroak.duck.registry;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.component.type.FoodComponent;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 
 
@@ -22,7 +21,8 @@ public class ItemGroupRegistry {
           entries.add(new ItemStack(MainRegistry.DUCK_SWORD_GREEN));
           entries.add(new ItemStack(MainRegistry.DUCK_SWORD_BLUE));
           entries.add(new ItemStack(MainRegistry.DUCK_SWORD_PURPLE));
-          //entries.add(new ItemStack(MainRegistry.DUCK_MOUNT_ENTITY_SPAWN_EGG));
+          entries.add(new ItemStack(MainRegistry.DUCK_SPAWN_EGG));
+          entries.add(new ItemStack(MainRegistry.DUCK_MOUNT_SPAWN_EGG));
 
 
 
