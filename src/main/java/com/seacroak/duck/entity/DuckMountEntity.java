@@ -176,7 +176,7 @@ public class DuckMountEntity extends PigEntity {
     protected void dropInventory() {
         super.dropInventory();
         {
-            this.dropItem(MainRegistry.DUCK_SWORD);
+            this.dropItem(MainRegistry.DUCK_MOUNT_SPAWN_EGG);
         }
     }
 }
