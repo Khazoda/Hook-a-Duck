@@ -1,19 +1,31 @@
 package com.seacroak.duck.block;
 
 import com.mojang.serialization.MapCodec;
+import com.seacroak.duck.entity.DuckEntity;
+import com.seacroak.duck.registry.MainRegistry;
+import com.seacroak.duck.registry.SoundRegistry;
 import com.seacroak.duck.util.VoxelShapeUtils;
+import gay.lemmaeof.terrifictickets.TerrificTickets;
+import gay.lemmaeof.terrifictickets.api.TerrificTicketsApi;
 import net.minecraft.block.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 public class DuckDispenser extends HorizontalFacingBlock implements Waterloggable {
@@ -23,6 +35,35 @@ public class DuckDispenser extends HorizontalFacingBlock implements Waterloggabl
     super(settings);
     setDefaultState(this.stateManager.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH).with(WATERLOGGED, false));
 
+  }
+
+  @Override
+  protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    if (stack.isOf(TerrificTickets.TOKEN)) {
+//      if (world.isClient()) {
+      DuckEntity duck = MainRegistry.DUCK_ENTITY.create(world);
+      if (duck != null) {
+        duck.setPosition(pos.getX(), pos.getY(), pos.getZ());
+        world.spawnEntity(duck);
+        stack.decrement(1);
+        world.playSound(player, pos, SoundRegistry.SQUEAK, SoundCategory.BLOCKS, 1f, 1f);
+        return ItemActionResult.SUCCESS;
+//        }
+      }
+
+    } else if (stack.isOf(TerrificTickets.PASSCARD)) {
+//      if (world.isClient()) {
+      DuckEntity duck = MainRegistry.DUCK_ENTITY.create(world);
+      if (duck != null) {
+        duck.setPosition(pos.getX(), pos.getY(), pos.getZ());
+        world.spawnEntity(duck);
+        TerrificTicketsApi.removeTokens(stack, 1);
+        world.playSound(player, pos, SoundRegistry.SQUEAK, SoundCategory.BLOCKS, 1f, 1f);
+        return ItemActionResult.SUCCESS;
+//        }
+      }
+    }
+    return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
   }
 
   @Override
