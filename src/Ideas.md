@@ -23,4 +23,4 @@ Luke
 
 - boat
 - Make boat slow on land
-- Make spawn egg for boat that drops from boat
+- ~~Make spawn egg for boat that drops from boat~~
