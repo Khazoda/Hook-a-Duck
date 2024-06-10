@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.SwimGoal;
@@ -15,9 +16,11 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.FluidTags;
@@ -130,6 +133,28 @@ public class DuckMountEntity extends PigEntity {
                 this.setVelocity(this.getVelocity().multiply(0.5).add(0.0, 0.05, 0.0));
             }
         }
+    }
+
+    protected float getPassengerHorizontalOffset() {
+        return 0.0F;
+    }
+
+    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+        float f = this.getPassengerHorizontalOffset();
+        if (this.getPassengerList().size() > 1) {
+            int i = this.getPassengerList().indexOf(passenger);
+            if (i == 0) {
+                f = 0.2F;
+            } else {
+                f = -0.6F;
+            }
+
+            if (passenger instanceof AnimalEntity) {
+                f += 0.2F;
+            }
+        }
+        return (new Vec3d(0.0, (double)(dimensions.height() / 3.0F), (double)f)).rotateY(-this.getYaw() * 0.017453292F);
+
     }
 
     protected SoundEvent getAmbientSound() {

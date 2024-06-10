@@ -17,7 +17,7 @@ public class DuckMountEntityRenderer extends MobEntityRenderer<DuckMountEntity, 
 
 
     public DuckMountEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new DuckMountEntityModel<>(context.getPart(HookADuckClient.MODEL_DUCK_LAYER)), 0.5f);
+        super(context, new DuckMountEntityModel<>(context.getPart(HookADuckClient.MODEL_DUCK_MOUNT_LAYER)), 0.5f);
     }
 
     @Override
