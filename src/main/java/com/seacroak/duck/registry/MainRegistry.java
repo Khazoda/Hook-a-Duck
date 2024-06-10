@@ -1,6 +1,7 @@
 package com.seacroak.duck.registry;
 
 import com.seacroak.duck.Constants;
+import com.seacroak.duck.block.DuckDispenser;
 import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.entity.DuckMountEntity;
 import com.seacroak.duck.item.DuckSword;
@@ -30,11 +31,11 @@ public class MainRegistry {
   static final Item.Settings singletonItemSettings = new Item.Settings().maxCount(1);
 
   /* Blocks */
-  public static final Block EXAMPLE_BLOCK = registerBlock("example_block", new Block(AbstractBlock.Settings.create().strength(2.5f)), defaultItemSettings);
+  public static final Block DUCK_DISPENSER = registerBlock("duck_dispenser", new DuckDispenser(AbstractBlock.Settings.create().nonOpaque().strength(2.5f)), defaultItemSettings);
 
   /* Generic Items  */
   public static final Item EXAMPLE_ITEM = Registry.register(Registries.ITEM, Identifier.of("example_item"), new Item(defaultItemSettings));
-  //public static final Item DUCK_ROD = registerItem("duck_rod");
+  public static final Item DUCK_ROD = registerItem("duck_rod");
   //public static final Item DUCK_MOUNT_ENTITY_SPAWN_EGG = registerItem("duck_mount_entity_spawn_egg", new SpawnEggItem(MainRegistry.DUCK_MOUNT_ENTITY, 0xE53935, 0xFEFEFE, new Item.Settings()));
 
 
@@ -87,7 +88,6 @@ public class MainRegistry {
 
   }
 
-
   /* Registration Functions */
   private static <B extends Block> B registerBlock(String name, B block, Item.Settings itemSettings) {
     return RegistryHelper.registerBlock(name, block, itemSettings);
@@ -101,7 +101,7 @@ public class MainRegistry {
     return RegistryHelper.registerBlockItem(name, blockItem);
   }
 
-  private static Item registerItem(String name, SpawnEggItem spawnEggItem) {
+  private static Item registerItem(String name) {
     return RegistryHelper.registerItem(name, new Item(defaultItemSettings));
   }
 }

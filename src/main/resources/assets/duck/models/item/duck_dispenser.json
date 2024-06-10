@@ -1,0 +1,4 @@
+{
+  "parent": "duck:block/duck_dispenser",
+  "gui_light": "front"
+}
