@@ -13,7 +13,7 @@ public class ItemGroupRegistry {
         .icon(() -> new ItemStack(MainRegistry.POPCORN))
         .displayName(Text.translatable("duck.itemGroup"))
         .entries((displayContext, entries) -> {
-          entries.add(new ItemStack(MainRegistry.DUCK_ROD));
+          //entries.add(new ItemStack(MainRegistry.DUCK_ROD));
           entries.add(new ItemStack(MainRegistry.POPCORN));
           entries.add(new ItemStack(MainRegistry.LOLLY));
           entries.add(new ItemStack(MainRegistry.CORNDUCK));
@@ -22,6 +22,7 @@ public class ItemGroupRegistry {
           entries.add(new ItemStack(MainRegistry.DUCK_SWORD_GREEN));
           entries.add(new ItemStack(MainRegistry.DUCK_SWORD_BLUE));
           entries.add(new ItemStack(MainRegistry.DUCK_SWORD_PURPLE));
+          //entries.add(new ItemStack(MainRegistry.DUCK_MOUNT_ENTITY_SPAWN_EGG));
 
 
 
