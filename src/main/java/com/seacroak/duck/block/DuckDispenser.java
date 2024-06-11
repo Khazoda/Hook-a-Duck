@@ -2,18 +2,21 @@ package com.seacroak.duck.block;
 
 import com.mojang.serialization.MapCodec;
 import com.seacroak.duck.entity.DuckEntity;
+import com.seacroak.duck.networking.DuckNetworking;
+import com.seacroak.duck.networking.SoundPayload;
 import com.seacroak.duck.registry.MainRegistry;
 import com.seacroak.duck.registry.SoundRegistry;
 import com.seacroak.duck.util.VoxelShapeUtils;
 import gay.lemmaeof.terrifictickets.TerrificTickets;
 import gay.lemmaeof.terrifictickets.api.TerrificTicketsApi;
 import net.minecraft.block.*;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
@@ -37,30 +40,39 @@ public class DuckDispenser extends HorizontalFacingBlock implements Waterloggabl
 
   }
 
+  private void dispenseDuck(Direction facing, BlockPos pos, World world) {
+    BlockPos posBuilder = BlockPos.ofFloored(
+        pos.toCenterPos().getX() + (facing.getOffsetX()),
+        pos.toCenterPos().getY(),
+        pos.toCenterPos().getZ() + (facing.getOffsetZ()));
+
+    DuckEntity duck = MainRegistry.DUCK_ENTITY.spawn((ServerWorld) world,
+        posBuilder,
+        SpawnReason.MOB_SUMMONED);
+
+    assert duck != null;
+    duck.setVelocity(0.5 * facing.getOffsetX(), 0.2, 0.5 * facing.getOffsetZ());
+
+    ServerWorld serverWorld = (ServerWorld) duck.getWorld();
+    for (int i = 0; i < 2; i++) {
+      serverWorld.spawnParticles(MainRegistry.DUCKS, duck.getX(), duck.getY() + 0.1, duck.getZ(), (int) (1.0F + duck.getWidth() * 20.0F), duck.getWidth() / 5, 0.0, duck.getWidth() / 5, 0.05F);
+    }
+  }
+
   @Override
   protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-    if (stack.isOf(TerrificTickets.TOKEN)) {
-//      if (world.isClient()) {
-      DuckEntity duck = MainRegistry.DUCK_ENTITY.create(world);
-      if (duck != null) {
-        duck.setPosition(pos.getX(), pos.getY(), pos.getZ());
-        world.spawnEntity(duck);
-        stack.decrement(1);
-        world.playSound(player, pos, SoundRegistry.SQUEAK, SoundCategory.BLOCKS, 1f, 1f);
-        return ItemActionResult.SUCCESS;
-//        }
-      }
+    if (stack.isOf(TerrificTickets.TOKEN) || stack.isOf(TerrificTickets.PASSCARD)) {
+      if (!world.isClient()) {
+        Direction facing = state.get(Properties.HORIZONTAL_FACING);
+        dispenseDuck(facing, pos, world);
 
-    } else if (stack.isOf(TerrificTickets.PASSCARD)) {
-//      if (world.isClient()) {
-      DuckEntity duck = MainRegistry.DUCK_ENTITY.create(world);
-      if (duck != null) {
-        duck.setPosition(pos.getX(), pos.getY(), pos.getZ());
-        world.spawnEntity(duck);
-        TerrificTicketsApi.removeTokens(stack, 1);
-        world.playSound(player, pos, SoundRegistry.SQUEAK, SoundCategory.BLOCKS, 1f, 1f);
+        if (stack.isOf(TerrificTickets.TOKEN)) stack.decrement(1);
+        if (stack.isOf(TerrificTickets.PASSCARD)) TerrificTicketsApi.removeTokens(stack, 1);
+        SoundPayload.sendPlayerPacketToClients((ServerWorld) world, new SoundPayload(player, pos, SoundRegistry.SQUEAK, 1f));
         return ItemActionResult.SUCCESS;
-//        }
+
+      } else {
+        DuckNetworking.playSoundOnClient(SoundRegistry.SQUEAK, world, pos, 1f, 1f);
       }
     }
     return super.onUseWithItem(stack, state, world, pos, player, hand, hit);

@@ -1,5 +1,7 @@
 package com.seacroak.duck;
 
+import com.seacroak.duck.networking.DuckNetworking;
+import com.seacroak.duck.networking.SoundPayload;
 import com.seacroak.duck.registry.ItemGroupRegistry;
 import com.seacroak.duck.registry.MainRegistry;
 import com.seacroak.duck.registry.SoundRegistry;
@@ -7,6 +9,7 @@ import com.seacroak.duck.util.GenericUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -29,6 +32,8 @@ public class HookADuck implements ModInitializer {
     /* Populate biomes with DUCKS */
     BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_RIVER).or(BiomeSelectors.tag(BiomeTags.IS_OCEAN)), MainRegistry.DUCK_ENTITY.getSpawnGroup(), MainRegistry.DUCK_ENTITY, 10, 1, 5);
 
+    PayloadTypeRegistry.playC2S().register(SoundPayload.ID, SoundPayload.CODEC);
+    DuckNetworking.registerGlobalSoundPacketReceiverWithPlayer();
 
     Constants.DUCK_LOGGER.info("The ducks are ready!");
   }
