@@ -19,7 +19,7 @@ public class DuckMountEntityModel<T extends DuckMountEntity> extends CompositeEn
     private final ModelPart LWing;
     private final ModelPart LeverTop;
     private final ModelPart Metals;
-    private final ModelPart waterblock;
+    private final ModelPart waterBlock;
 
 
     public DuckMountEntityModel(ModelPart root) {
@@ -29,7 +29,7 @@ public class DuckMountEntityModel<T extends DuckMountEntity> extends CompositeEn
         this.LWing = this.Additions.getChild("LWing");
         this.LeverTop = root.getChild("LeverTop");
         this.Metals = root.getChild("Metals");
-        this.waterblock = root.getChild("waterblock");
+        this.waterBlock = root.getChild("waterblock");
 
 
     }
@@ -37,13 +37,14 @@ public class DuckMountEntityModel<T extends DuckMountEntity> extends CompositeEn
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData waterblock = modelPartData.addChild("waterblock", ModelPartBuilder.create().uv(7, 104).cuboid(-7.0F, -2.0F, -12.0F, 16.0F, 6.0F, 22.0F, new Dilation(0.0F)), ModelTransform.pivot(-0.95F, 16.5F, -2.0F));
 
         ModelPartData Base = modelPartData.addChild("Base", ModelPartBuilder.create().uv(0, 0).cuboid(1.0F, 0.0F, -1.0F, 16.0F, 3.0F, 28.0F, new Dilation(0.0F))
                 .uv(64, 31).cuboid(0.0F, -6.0F, 27.0F, 18.0F, 6.0F, 2.0F, new Dilation(0.0F))
                 .uv(60, 20).cuboid(0.0F, -6.0F, -3.0F, 18.0F, 6.0F, 2.0F, new Dilation(0.0F))
                 .uv(32, 37).cuboid(17.0F, -6.0F, -1.0F, 2.0F, 6.0F, 28.0F, new Dilation(0.0F))
                 .uv(0, 31).cuboid(-1.0F, -6.0F, -1.0F, 2.0F, 6.0F, 28.0F, new Dilation(0.0F)), ModelTransform.pivot(-9.0F, 21.0F, -13.0F));
+
+        ModelPartData waterBlock = modelPartData.addChild("waterblock", ModelPartBuilder.create().uv(7, 104).cuboid(-8.0F, -14.0F, -13.0F, 18.0F, 6.0F, 29.0F, new Dilation(0.0F)), ModelTransform.pivot(-0.95F, 16.5F, -2.0F));//Changed transform pivot to base, was (-0.95F, 16.5F, -2.0F)
 
         ModelPartData Additions = modelPartData.addChild("Additions", ModelPartBuilder.create().uv(60, 0).cuboid(-8.05F, 6.5F, 29.5F, 16.0F, 6.0F, 6.0F, new Dilation(0.0F))
                 .uv(60, 12).cuboid(-8.05F, 10.5F, 23.5F, 16.0F, 2.0F, 6.0F, new Dilation(0.0F))
@@ -95,12 +96,12 @@ public class DuckMountEntityModel<T extends DuckMountEntity> extends CompositeEn
 
     @Override
     public void setAngles(DuckMountEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
+        this.Base.yaw = headYaw * ((float)Math.PI / 180F);
     }
 
     @Override
     public ModelPart getWaterPatch() {
-        return this.waterblock;
+        return this.waterBlock;
     }
 }
 

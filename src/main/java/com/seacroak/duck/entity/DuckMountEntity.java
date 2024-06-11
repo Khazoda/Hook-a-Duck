@@ -43,7 +43,7 @@ public class DuckMountEntity extends PigEntity {
 
     /*Attributes*/
     public static DefaultAttributeContainer.Builder createDuckMountAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5);
     }
 
     /*on Interact*/
@@ -93,8 +93,8 @@ public class DuckMountEntity extends PigEntity {
             if (g <= 0.0F) {
                 if (this.isOnGround()) {
                     g *= 0.25F;
-                } else if(this.isTouchingWater()) {
-                    g *= 0.55F;
+                } else if (this.isTouchingWater()) {
+                    g *= 0.50F;
                 }
             }
 
@@ -153,7 +153,7 @@ public class DuckMountEntity extends PigEntity {
                 f += 0.2F;
             }
         }
-        return (new Vec3d(0.0, (double)(dimensions.height() / 3.0F), (double)f)).rotateY(-this.getYaw() * 0.017453292F);
+        return (new Vec3d(0.0, (double) (dimensions.height() / 3.0F), (double) f)).rotateY(-this.getYaw() * 0.017453292F);
 
     }
 
@@ -180,4 +180,6 @@ public class DuckMountEntity extends PigEntity {
         }
     }
 }
+
+
 
