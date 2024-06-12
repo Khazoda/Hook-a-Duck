@@ -15,6 +15,9 @@ public class PacketDecoder {
       case "duck:pop":
         returnValue = SoundRegistry.POP;
         break;
+      case "duck:trumpet":
+        returnValue = SoundRegistry.TRUMPET;
+        break;
 
       /* MC Sounds */
       case "minecraft:block.moss.place":

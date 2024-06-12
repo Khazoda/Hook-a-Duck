@@ -2,6 +2,7 @@ package com.seacroak.duck;
 
 import com.seacroak.duck.networking.DuckNetworking;
 import com.seacroak.duck.networking.SoundPayload;
+import com.seacroak.duck.networking.SoundPayloadPlayerless;
 import com.seacroak.duck.registry.ItemGroupRegistry;
 import com.seacroak.duck.registry.MainRegistry;
 import com.seacroak.duck.registry.SoundRegistry;
@@ -33,7 +34,10 @@ public class HookADuck implements ModInitializer {
     BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_RIVER).or(BiomeSelectors.tag(BiomeTags.IS_OCEAN)), MainRegistry.DUCK_ENTITY.getSpawnGroup(), MainRegistry.DUCK_ENTITY, 10, 1, 5);
 
     PayloadTypeRegistry.playC2S().register(SoundPayload.ID, SoundPayload.CODEC);
+    PayloadTypeRegistry.playC2S().register(SoundPayloadPlayerless.ID, SoundPayloadPlayerless.CODEC);
     DuckNetworking.registerGlobalSoundPacketReceiverWithPlayer();
+    DuckNetworking.registerGlobalSoundPacketReceiverWithoutPlayer();
+
 
     Constants.DUCK_LOGGER.info("The ducks are ready!");
   }

@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.networking.DuckNetworking;
 import com.seacroak.duck.networking.SoundPayload;
+import com.seacroak.duck.networking.SoundPayloadPlayerless;
 import com.seacroak.duck.registry.MainRegistry;
 import com.seacroak.duck.registry.SoundRegistry;
 import com.seacroak.duck.util.VoxelShapeUtils;
@@ -32,11 +33,14 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 public class DuckDispenser extends HorizontalFacingBlock implements Waterloggable {
+  public static final BooleanProperty ON_COOLDOWN = BooleanProperty.of("on_cooldown");
+  public static final BooleanProperty TIMER_RUNNING = BooleanProperty.of("timer_running");
+
   public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
   public DuckDispenser(Settings settings) {
     super(settings);
-    setDefaultState(this.stateManager.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH).with(WATERLOGGED, false));
+    setDefaultState(this.stateManager.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH).with(WATERLOGGED, false).with(ON_COOLDOWN, false).with(TIMER_RUNNING, false));
 
   }
 
@@ -62,25 +66,67 @@ public class DuckDispenser extends HorizontalFacingBlock implements Waterloggabl
   @Override
   protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
     if (stack.isOf(TerrificTickets.TOKEN) || stack.isOf(TerrificTickets.PASSCARD)) {
-      if (!world.isClient()) {
-        Direction facing = state.get(Properties.HORIZONTAL_FACING);
-        dispenseDuck(facing, pos, world);
-
+      if (state.get(ON_COOLDOWN)) return ItemActionResult.CONSUME;
+      if (state.get(TIMER_RUNNING)) return ItemActionResult.CONSUME;
+      if (stack.isOf(TerrificTickets.PASSCARD)) {
+        if (TerrificTicketsApi.getTokens(stack) <= 0) {
+          return ItemActionResult.CONSUME;
+        }
+      }
+      this.startCooldown(state, world, pos, 50);
+      if (world.isClient()) {
+        DuckNetworking.playSoundOnClient(SoundRegistry.PULL, world, pos, 1f, 1f);
         if (stack.isOf(TerrificTickets.TOKEN)) stack.decrement(1);
         if (stack.isOf(TerrificTickets.PASSCARD)) TerrificTicketsApi.removeTokens(stack, 1);
-        SoundPayload.sendPlayerPacketToClients((ServerWorld) world, new SoundPayload(player, pos, SoundRegistry.SQUEAK, 1f));
-        return ItemActionResult.SUCCESS;
-
-      } else {
-        DuckNetworking.playSoundOnClient(SoundRegistry.SQUEAK, world, pos, 1f, 1f);
+      } else if (world.isClient()) {
+        SoundPayload.sendPlayerPacketToClients((ServerWorld) world, new SoundPayload(player, pos, SoundRegistry.PULL, 1f));
       }
+      this.startTimer(state, world, pos, 40);
+      return ItemActionResult.SUCCESS;
     }
     return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
   }
 
   @Override
+  protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+    super.onStateReplaced(state, world, pos, newState, moved);
+  }
+
+  public void startCooldown(BlockState state, World world, BlockPos pos, int period) {
+    world.setBlockState(pos, state.with(ON_COOLDOWN, true), 3);
+    this.updateNeighbors(state, world, pos);
+    world.scheduleBlockTick(pos, this, period);
+  }
+
+  public void startTimer(BlockState state, World world, BlockPos pos, int period) {
+    world.setBlockState(pos, state.with(TIMER_RUNNING, true), 3);
+    this.updateNeighbors(state, world, pos);
+    world.scheduleBlockTick(pos, this, period);
+  }
+
+  public void scheduledTick(BlockState state, ServerWorld world, BlockPos
+      pos, net.minecraft.util.math.random.Random random) {
+
+    if (state.get(TIMER_RUNNING)) {
+      dispenseDuck(state.get(Properties.HORIZONTAL_FACING), pos, world);
+      SoundPayloadPlayerless.sendNoPlayerPacketToClients(world, pos, "duck:squeak", 1f);
+      SoundPayloadPlayerless.sendNoPlayerPacketToClients(world, pos, "duck:trumpet", 1f);
+
+      world.setBlockState(pos, state.with(TIMER_RUNNING, false), 3);
+    }
+    if (state.get(ON_COOLDOWN)) {
+      world.setBlockState(pos, state.with(ON_COOLDOWN, false), 3);
+    }
+    this.updateNeighbors(state, world, pos);
+  }
+
+  @Override
   protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
     return null;
+  }
+
+  private void updateNeighbors(BlockState state, World world, BlockPos pos) {
+    world.updateNeighborsAlways(pos, this);
   }
 
   public VoxelShape getShape() {
@@ -126,6 +172,6 @@ public class DuckDispenser extends HorizontalFacingBlock implements Waterloggabl
 
   // Append initial properties
   protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-    builder.add(FACING, WATERLOGGED);
+    builder.add(ON_COOLDOWN, TIMER_RUNNING, FACING, WATERLOGGED);
   }
 }

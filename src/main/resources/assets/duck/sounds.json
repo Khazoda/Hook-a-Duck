@@ -8,5 +8,15 @@
     "sounds": [
       "duck:pop"
     ]
+  },
+  "pull": {
+    "sounds": [
+      "duck:pull"
+    ]
+  },
+  "trumpet": {
+    "sounds": [
+      "duck:trumpet"
+    ]
   }
 }

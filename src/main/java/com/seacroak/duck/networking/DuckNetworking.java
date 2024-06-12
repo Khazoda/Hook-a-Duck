@@ -31,4 +31,14 @@ public class DuckNetworking {
     });
   }
 
+  /* Receiver WITHOUT Player Data*/
+  public static void registerGlobalSoundPacketReceiverWithoutPlayer() {
+    /* Registers global packet receiver in MainRegistry.class */
+    ServerPlayNetworking.registerGlobalReceiver(SoundPayloadPlayerless.ID, (payload, context) -> {
+      context.player().getServer().execute(() -> {
+        SoundPayloadPlayerless.sendNoPlayerPacketToClients(context.player().getServerWorld(), BlockPos.ofFloored(payload.pos()), payload.soundIdentifier(), payload.pitch());
+      });
+    });
+  }
+
 }

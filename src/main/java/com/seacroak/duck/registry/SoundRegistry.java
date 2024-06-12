@@ -8,6 +8,8 @@ import net.minecraft.sound.SoundEvent;
 public final class SoundRegistry {
   public static final SoundEvent SQUEAK = register("squeak");
   public static final SoundEvent POP = register("pop");
+  public static final SoundEvent PULL = register("pull");
+  public static final SoundEvent TRUMPET = register("trumpet");
 
 
   public static void init() {

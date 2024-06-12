@@ -7,6 +7,7 @@ import com.seacroak.duck.entity.DuckMountEntityRenderer;
 import com.seacroak.duck.networking.DuckNetworking;
 import com.seacroak.duck.networking.PacketDecoder;
 import com.seacroak.duck.networking.SoundPayload;
+import com.seacroak.duck.networking.SoundPayloadPlayerless;
 import com.seacroak.duck.registry.MainRegistry;
 import com.seacroak.duck.util.GenericUtils;
 import net.fabricmc.api.ClientModInitializer;
@@ -21,6 +22,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Position;
 
 import static com.seacroak.duck.registry.MainRegistry.DUCK_ENTITY;
 import static com.seacroak.duck.registry.MainRegistry.DUCK_MOUNT_ENTITY;
@@ -32,6 +34,7 @@ public class HookADuckClient implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
     PayloadTypeRegistry.playS2C().register(SoundPayload.ID, SoundPayload.CODEC);
+    PayloadTypeRegistry.playS2C().register(SoundPayloadPlayerless.ID, SoundPayloadPlayerless.CODEC);
 
     EntityRendererRegistry.register(DUCK_ENTITY, DuckEntityRenderer::new);
     EntityModelLayerRegistry.registerModelLayer(MODEL_DUCK_LAYER, DuckEntityModel::getTexturedModelData);
@@ -51,6 +54,17 @@ public class HookADuckClient implements ClientModInitializer {
       assert context.client().player != null;
       if (payload.playerUUID() == context.client().player.getUuid())
         return;
+      context.client().execute(() -> {
+        if (context.client().world == null)
+          return;
+        DuckNetworking.playSoundOnClient(decodedSoundEvent, context.client().world, BlockPos.ofFloored(payload.pos()), 1f, payload.pitch());
+      });
+    });
+
+    /* Sound Event Networking Packet Client Receipt */
+    ClientPlayNetworking.registerGlobalReceiver(SoundPayloadPlayerless.ID, (payload, context) -> {
+      SoundEvent decodedSoundEvent = PacketDecoder.decodeSoundEvent(payload.soundIdentifier());
+      if (context.client() == null) return;
       context.client().execute(() -> {
         if (context.client().world == null)
           return;
