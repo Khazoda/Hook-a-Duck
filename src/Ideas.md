@@ -14,7 +14,7 @@ June
 ----------
 - Small screenspace popup with duck and rarity when catching a duck
   - Big Screenspace popup with rotating duck when catching rare duck, accompanied with a jingle
-- Duck dispenser -> tokens for random ducks (gacha xd)
+- ~~Duck dispenser -> tokens for random ducks (gacha xd)~~
 - Loot Tables
 - Duck Balloon Entity
 
