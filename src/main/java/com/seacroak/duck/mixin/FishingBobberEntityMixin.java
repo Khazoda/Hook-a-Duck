@@ -3,6 +3,7 @@ package com.seacroak.duck.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.registry.MainRegistry;
+import com.seacroak.duck.util.DuckRarity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +35,8 @@ public abstract class FishingBobberEntityMixin extends Entity {
           DuckEntity hookedDuckEntity = (DuckEntity) hookedEntity;
           if (hookedDuckEntity != null) {
             int ticketPayout = 0;
-            switch (hookedDuckEntity.getVariant()) {
+            DuckRarity rarityHooked = hookedDuckEntity.getVariant();
+            switch (rarityHooked) {
               case DEFAULT -> ticketPayout = 5;
               case GREEN -> ticketPayout = 10;
               case BLUE -> ticketPayout = 15;
@@ -47,7 +49,7 @@ public abstract class FishingBobberEntityMixin extends Entity {
             double e = entity2.getY() - this.getY();
             double f = entity2.getZ() - this.getZ();
 
-            hookedDuckEntity.setSpewParams(ticketPayout, (PlayerEntity) entity2, d,e,f);
+            hookedDuckEntity.setSpewParams(ticketPayout, rarityHooked, (PlayerEntity) entity2, d, e, f);
             hookedDuckEntity.shouldSpew = true;
           }
         }

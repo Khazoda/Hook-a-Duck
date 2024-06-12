@@ -1,5 +1,6 @@
 package com.seacroak.duck.entity;
 
+import com.seacroak.duck.loot_table.DuckLootTable;
 import com.seacroak.duck.registry.MainRegistry;
 import com.seacroak.duck.registry.SoundRegistry;
 import com.seacroak.duck.util.DuckRarity;
@@ -20,6 +21,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -40,6 +42,7 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
   public boolean shouldSpew = false;
 
   int ticketPayout;
+  DuckRarity rarityHooked = DuckRarity.DEFAULT;
   int ticketsPaidOut = 0;
   PlayerEntity hooker;
   double d;
@@ -64,11 +67,7 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
   }
 
   public static DefaultAttributeContainer.Builder createDuckAttributes() {
-    return MobEntity.createMobAttributes()
-        .add(EntityAttributes.GENERIC_MAX_HEALTH, 4)
-        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f)
-        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2)
-        .add(EntityAttributes.GENERIC_ARMOR, 0.5f);
+    return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2f).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2).add(EntityAttributes.GENERIC_ARMOR, 0.5f);
   }
 
   @Override
@@ -99,16 +98,52 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
   public void setVariant(DuckRarity variant) {
   }
 
-  public void setSpewParams(int ticketPayout, PlayerEntity hooker, double d, double e, double f) {
+  public void setSpewParams(int ticketPayout, DuckRarity rarity, PlayerEntity hooker, double d, double e, double f) {
     this.ticketPayout = ticketPayout;
+    this.rarityHooked = rarity;
     this.hooker = hooker;
     this.d = d;
     this.e = e;
     this.f = f;
   }
 
+  public void spewWeightedLoot(World world) {
+    Item[] lootTable = new Item[0];
+    switch (this.rarityHooked) {
+      case DEFAULT -> {
+        lootTable = DuckLootTable.DEFAULT_LOOT_TABLE;
+      }
+      case GREEN -> {
+        lootTable = DuckLootTable.GREEN_LOOT_TABLE;
+      }
+      case BLUE -> {
+        lootTable = DuckLootTable.BLUE_LOOT_TABLE;
+      }
+      case PURPLE -> {
+        lootTable = DuckLootTable.PURPLE_LOOT_TABLE;
+      }
+      case RED -> {
+        lootTable = DuckLootTable.RED_LOOT_TABLE;
+      }
+      case GOLD -> {
+        lootTable = DuckLootTable.GOLD_LOOT_TABLE;
+      }
+    }
 
-  public void spew() {
+    if (world.getRandom().nextBoolean()) {
+      ItemStack loot = new ItemStack(lootTable[world.getRandom().nextBetween(0, lootTable.length - 1)]);
+      ItemEntity lootEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), loot);
+      lootEntity.setVelocity(d * 0.1, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.125, f * 0.1);
+      world.spawnEntity(lootEntity);
+      this.playSound(SoundRegistry.TRUMPET, 1F, 1.0F);
+
+      this.d = hooker.getX() - this.getX();
+      this.e = hooker.getY() - this.getY();
+      this.f = hooker.getZ() - this.getZ();
+    }
+  }
+
+  public void spewFiveTickets() {
     ItemStack fiveTickets = new ItemStack(TerrificTickets.TICKET);
     fiveTickets.setCount(5);
     ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), fiveTickets);
@@ -122,14 +157,16 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
     this.f = hooker.getZ() - this.getZ();
   }
 
+
   @Override
   public void tick() {
     super.tick();
     if (tickCounter % 2 == 0) {
       if (this.shouldSpew) {
-        spew();
+        spewFiveTickets();
         ticketsPaidOut += 5;
         if (ticketsPaidOut >= ticketPayout) {
+          spewWeightedLoot(getWorld());
           this.shouldSpew = false;
           ServerWorld serverWorld = (ServerWorld) this.getWorld();
           for (int i = 0; i < 5; i++) {
