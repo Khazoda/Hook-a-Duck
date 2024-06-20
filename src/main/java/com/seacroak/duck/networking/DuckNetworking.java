@@ -26,7 +26,7 @@ public class DuckNetworking {
       if (payload.playerUUID() == context.player().getUuid())
         return;
       context.player().getServer().execute(() -> {
-        SoundPayload.sendPlayerPacketToClients(context.player().getServerWorld(), new SoundPayload(payload.playerUUID(), payload.pos(), payload.soundIdentifier(), payload.pitch()));
+        SoundPayload.sendPlayerPacketToClients(context.player().getServerWorld(), new SoundPayload(payload.playerUUID(), payload.pos(), payload.soundEvent(), payload.pitch()));
       });
     });
   }
@@ -36,7 +36,7 @@ public class DuckNetworking {
     /* Registers global packet receiver in MainRegistry.class */
     ServerPlayNetworking.registerGlobalReceiver(SoundPayloadPlayerless.ID, (payload, context) -> {
       context.player().getServer().execute(() -> {
-        SoundPayloadPlayerless.sendNoPlayerPacketToClients(context.player().getServerWorld(), BlockPos.ofFloored(payload.pos()), payload.soundIdentifier(), payload.pitch());
+        SoundPayloadPlayerless.sendNoPlayerPacketToClients(context.player().getServerWorld(), payload);
       });
     });
   }

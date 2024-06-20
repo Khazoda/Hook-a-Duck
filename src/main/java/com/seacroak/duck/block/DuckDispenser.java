@@ -78,8 +78,8 @@ public class DuckDispenser extends HorizontalFacingBlock implements Waterloggabl
         DuckNetworking.playSoundOnClient(SoundRegistry.PULL, world, pos, 1f, 1f);
         if (stack.isOf(TerrificTickets.TOKEN)) stack.decrement(1);
         if (stack.isOf(TerrificTickets.PASSCARD)) TerrificTicketsApi.removeTokens(stack, 1);
-      } else if (world.isClient()) {
-        SoundPayload.sendPlayerPacketToClients((ServerWorld) world, new SoundPayload(player, pos, SoundRegistry.PULL, 1f));
+      } else if (!world.isClient()) {
+        SoundPayload.sendPlayerPacketToClients((ServerWorld) world, new SoundPayload(player.getUuid(), pos, SoundRegistry.PULL, 1f));
       }
       this.startTimer(state, world, pos, 40);
       return ItemActionResult.SUCCESS;
@@ -109,8 +109,8 @@ public class DuckDispenser extends HorizontalFacingBlock implements Waterloggabl
 
     if (state.get(TIMER_RUNNING)) {
       dispenseDuck(state.get(Properties.HORIZONTAL_FACING), pos, world);
-      SoundPayloadPlayerless.sendNoPlayerPacketToClients(world, pos, "duck:squeak", 1f);
-      SoundPayloadPlayerless.sendNoPlayerPacketToClients(world, pos, "duck:trumpet", 1f);
+      SoundPayloadPlayerless.sendNoPlayerPacketToClients(world, new SoundPayloadPlayerless(pos, SoundRegistry.SQUEAK, 1f));
+      SoundPayloadPlayerless.sendNoPlayerPacketToClients(world, new SoundPayloadPlayerless(pos, SoundRegistry.TRUMPET, 1f));
 
       world.setBlockState(pos, state.with(TIMER_RUNNING, false), 3);
     }
