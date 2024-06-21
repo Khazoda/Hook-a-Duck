@@ -16,6 +16,7 @@ import net.minecraft.block.Block;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.*;
 import net.minecraft.particle.SimpleParticleType;
@@ -28,14 +29,13 @@ import static com.seacroak.duck.util.RegistryHelper.newID;
 
 public class MainRegistry {
   static final Item.Settings defaultItemSettings = new Item.Settings().maxCount(64);
-  static final Item.Settings singletonItemSettings = new Item.Settings().maxCount(1);
+  static final Item.Settings defaultItemSettingsWithHeadEquip = new Item.Settings().maxCount(64).equipmentSlot((stack, regWrapper) -> EquipmentSlot.HEAD);
 
   /* Blocks */
-  public static final Block DUCK_DISPENSER = registerBlock("duck_dispenser", new DuckDispenser(AbstractBlock.Settings.create().nonOpaque().strength(2.5f)), defaultItemSettings);
+  public static final Block DUCK_DISPENSER = registerBlock("duck_dispenser", new DuckDispenser(AbstractBlock.Settings.create().nonOpaque().strength(2.5f)), defaultItemSettingsWithHeadEquip);
 
   /* Generic Items  */
   public static final Item DUCK_ROD = registerItem("duck_rod");
-
 
   /* Consumables */
   public static final FoodComponent BIG_FOOD = (new FoodComponent.Builder()).nutrition(8).saturationModifier(0.3F).build();
