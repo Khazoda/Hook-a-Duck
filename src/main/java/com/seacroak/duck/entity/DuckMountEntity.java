@@ -15,14 +15,10 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.item.Items;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -40,6 +36,7 @@ public class DuckMountEntity extends PigEntity {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
     }
+
 
     /*Attributes*/
     public static DefaultAttributeContainer.Builder createDuckMountAttributes() {
@@ -98,16 +95,15 @@ public class DuckMountEntity extends PigEntity {
                 }
             }
 
-            return new Vec3d((double) f, 0.0, (double) g);
+            return new Vec3d(f, 0.0, g);
         }
     }
 
     public LivingEntity getControllingPassenger() {
         if (this.hasPassengers()) {
             Entity var2 = this.getFirstPassenger();
-            if (var2 instanceof PlayerEntity) {
-                PlayerEntity playerEntity = (PlayerEntity) var2;
-                return playerEntity;
+            if (var2 instanceof PlayerEntity playerEntity) {
+              return playerEntity;
             }
         }
 
@@ -153,7 +149,7 @@ public class DuckMountEntity extends PigEntity {
                 f += 0.2F;
             }
         }
-        return (new Vec3d(0.0, (double) (dimensions.height() / 3.0F), (double) f)).rotateY(-this.getYaw() * 0.017453292F);
+        return (new Vec3d(0.0, dimensions.height() / 3.0F, f)).rotateY(-this.getYaw() * 0.017453292F);
 
     }
 

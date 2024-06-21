@@ -198,11 +198,11 @@ public class DuckEntity extends WaterCreatureEntity implements VariantHolder<Duc
   @Override
   public void onDeath(DamageSource damageSource) {
     if (!getWorld().isClient()) {
-      for (int i = 0; i < 2; i++) {
-        dropItem(TerrificTickets.TICKET);
-      }
-      dropItem(Items.DEAD_BUSH);
       if (damageSource.isOf(DamageTypes.PLAYER_ATTACK)) {
+        for (int i = 0; i < 2; i++) {
+          dropItem(TerrificTickets.TICKET);
+        }
+        dropItem(Items.DEAD_BUSH);
         damageSource.getAttacker().sendMessage(Text.literal("Try hooking the duck instead.."));
       }
     }

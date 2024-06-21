@@ -34,9 +34,7 @@ public class MainRegistry {
   public static final Block DUCK_DISPENSER = registerBlock("duck_dispenser", new DuckDispenser(AbstractBlock.Settings.create().nonOpaque().strength(2.5f)), defaultItemSettings);
 
   /* Generic Items  */
-  public static final Item EXAMPLE_ITEM = Registry.register(Registries.ITEM, Identifier.of("example_item"), new Item(defaultItemSettings));
   public static final Item DUCK_ROD = registerItem("duck_rod");
-  //public static final Item DUCK_MOUNT_ENTITY_SPAWN_EGG = registerItem("duck_mount_entity_spawn_egg", new SpawnEggItem(MainRegistry.DUCK_MOUNT_ENTITY, 0xE53935, 0xFEFEFE, new Item.Settings()));
 
 
   /* Consumables */
