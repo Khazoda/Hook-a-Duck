@@ -32,7 +32,7 @@ public class MainRegistry {
   static final Item.Settings defaultItemSettingsWithHeadEquip = new Item.Settings().maxCount(64).equipmentSlot((stack, regWrapper) -> EquipmentSlot.HEAD);
 
   /* Blocks */
-  public static final Block DUCK_DISPENSER = registerBlock("duck_dispenser", new DuckDispenser(AbstractBlock.Settings.create().nonOpaque().strength(2.5f)), defaultItemSettingsWithHeadEquip);
+  public static final Block DUCK_DISPENSER = registerBlock("duck_dispenser", new DuckDispenser(AbstractBlock.Settings.create().nonOpaque().strength(1f)), defaultItemSettingsWithHeadEquip);
 
   /* Generic Items  */
   public static final Item DUCK_ROD = registerItem("duck_rod");
