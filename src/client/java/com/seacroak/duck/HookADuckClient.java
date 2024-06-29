@@ -4,6 +4,7 @@ import com.seacroak.duck.entity.DuckEntityModel;
 import com.seacroak.duck.entity.DuckEntityRenderer;
 import com.seacroak.duck.entity.DuckMountEntityModel;
 import com.seacroak.duck.entity.DuckMountEntityRenderer;
+import com.seacroak.duck.integration.spirit_vector.sfx.SFXRegistry;
 import com.seacroak.duck.networking.DuckNetworking;
 import com.seacroak.duck.networking.SoundPayload;
 import com.seacroak.duck.networking.SoundPayloadPlayerless;
@@ -16,6 +17,7 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.minecraft.client.particle.CloudParticle;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -40,6 +42,7 @@ public class HookADuckClient implements ClientModInitializer {
 
     ParticleFactoryRegistry.getInstance().register(MainRegistry.RARE_SPARKLE, FlameParticle.Factory::new);
     ParticleFactoryRegistry.getInstance().register(MainRegistry.DUCKS, FlameParticle.Factory::new);
+    ParticleFactoryRegistry.getInstance().register(SFXRegistry.DuckSFX.particleType(), CloudParticle.CloudFactory::new);
 
     BlockRenderLayerMap.INSTANCE.putBlock(MainRegistry.DUCK_DISPENSER, RenderLayer.getCutout());
 

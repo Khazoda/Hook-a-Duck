@@ -11,5 +11,8 @@
   "item.duck.duck_sword_blue": "Blue Duck Sword",
   "item.duck.duck_sword_purple": "Purple Duck Sword",
   "item.duck.duck_spawn_egg": "Duck Spawn Egg",
-  "item.duck.duck_mount_spawn_egg": "Duck Mount Spawn Egg"
+  "item.duck.duck_mount_spawn_egg": "Duck Mount Spawn Egg",
+  "entity.duck.duck": "Plastic Duck",
+  "entity.duck.duck_mount": "Plastic Duck Mount",
+  "item.duck.anima_core_duck": "Anima Core \"Hooked Duck\""
 }

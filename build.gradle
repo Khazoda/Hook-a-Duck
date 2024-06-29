@@ -17,6 +17,17 @@ repositories {
             includeGroup 'gay.lemmaeof'
         }
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 
 }
 
@@ -45,7 +56,8 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation include("gay.lemmaeof:terrifictickets:0.1.2+1.21-pre3")
+    modImplementation("gay.lemmaeof:terrifictickets:1.0.0+1.21")
+    modImplementation("maven.modrinth:spirit-vector:f7p3AQOf")
 
 
 }

@@ -4,6 +4,7 @@ import com.seacroak.duck.Constants;
 import com.seacroak.duck.block.DuckDispenser;
 import com.seacroak.duck.entity.DuckEntity;
 import com.seacroak.duck.entity.DuckMountEntity;
+import com.seacroak.duck.item.DispensableSpawnEggItem;
 import com.seacroak.duck.item.DuckSword;
 import com.seacroak.duck.item.FoodItem;
 import com.seacroak.duck.item.MountSpawnerItem;
@@ -16,9 +17,11 @@ import net.minecraft.block.Block;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -29,10 +32,9 @@ import static com.seacroak.duck.util.RegistryHelper.newID;
 
 public class MainRegistry {
   static final Item.Settings defaultItemSettings = new Item.Settings().maxCount(64);
-  static final Item.Settings defaultItemSettingsWithHeadEquip = new Item.Settings().maxCount(64).equipmentSlot((stack, regWrapper) -> EquipmentSlot.HEAD);
 
   /* Blocks */
-  public static final Block DUCK_DISPENSER = registerBlock("duck_dispenser", new DuckDispenser(AbstractBlock.Settings.create().nonOpaque().strength(1f)), defaultItemSettingsWithHeadEquip);
+  public static final Block DUCK_DISPENSER = registerBlock("duck_dispenser", new DuckDispenser(AbstractBlock.Settings.create().nonOpaque().strength(1f)), defaultItemSettings);
 
   /* Generic Items  */
   public static final Item DUCK_ROD = registerItem("duck_rod");
@@ -61,7 +63,7 @@ public class MainRegistry {
       newID("duck"),
       FabricEntityTypeBuilder.create(SpawnGroup.WATER_AMBIENT, DuckEntity::new).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build());
 
-  public static final Item DUCK_SPAWN_EGG = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_spawn_egg"), new SpawnEggItem(
+  public static final Item DUCK_SPAWN_EGG = Registry.register(Registries.ITEM, Identifier.of(Constants.DUCK_ID, "duck_spawn_egg"), new DispensableSpawnEggItem(
       MainRegistry.DUCK_ENTITY,
       5526528,
       16776960,

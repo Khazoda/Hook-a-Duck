@@ -11,10 +11,12 @@ import com.seacroak.duck.util.VoxelShapeUtils;
 import gay.lemmaeof.terrifictickets.TerrificTickets;
 import gay.lemmaeof.terrifictickets.api.TerrificTicketsApi;
 import net.minecraft.block.*;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Equipment;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -32,7 +34,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
-public class DuckDispenser extends HorizontalFacingBlock implements Waterloggable {
+public class DuckDispenser extends HorizontalFacingBlock implements Waterloggable, Equipment {
   public static final BooleanProperty ON_COOLDOWN = BooleanProperty.of("on_cooldown");
   public static final BooleanProperty TIMER_RUNNING = BooleanProperty.of("timer_running");
 
@@ -147,6 +149,11 @@ public class DuckDispenser extends HorizontalFacingBlock implements Waterloggabl
   @Override
   public BlockRenderType getRenderType(BlockState state) {
     return BlockRenderType.MODEL;
+  }
+
+  @Override
+  public EquipmentSlot getSlotType() {
+    return EquipmentSlot.HEAD;
   }
 
   // Initial state upon placing
