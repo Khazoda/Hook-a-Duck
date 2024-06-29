@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "duck:anima_core_duck"
+    {
+      "id": "duck:anima_core_duck",
+      "required": false
+    }
   ]
 }

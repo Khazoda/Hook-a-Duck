@@ -22,6 +22,7 @@ import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 
+import static com.seacroak.duck.HookADuck.spirit_vector_mod_loaded;
 import static com.seacroak.duck.registry.MainRegistry.DUCK_ENTITY;
 import static com.seacroak.duck.registry.MainRegistry.DUCK_MOUNT_ENTITY;
 
@@ -42,7 +43,8 @@ public class HookADuckClient implements ClientModInitializer {
 
     ParticleFactoryRegistry.getInstance().register(MainRegistry.RARE_SPARKLE, FlameParticle.Factory::new);
     ParticleFactoryRegistry.getInstance().register(MainRegistry.DUCKS, FlameParticle.Factory::new);
-    ParticleFactoryRegistry.getInstance().register(SFXRegistry.DuckSFX.particleType(), CloudParticle.CloudFactory::new);
+    if (spirit_vector_mod_loaded)
+      ParticleFactoryRegistry.getInstance().register(SFXRegistry.DuckSFX.particleType(), CloudParticle.CloudFactory::new);
 
     BlockRenderLayerMap.INSTANCE.putBlock(MainRegistry.DUCK_DISPENSER, RenderLayer.getCutout());
 
