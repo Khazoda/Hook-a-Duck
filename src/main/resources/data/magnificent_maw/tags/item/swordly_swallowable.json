@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "duck:duck_sword",
+    "duck:duck_sword_green",
+    "duck:duck_sword_blue",
+    "duck:duck_sword_red",
+    "duck:duck_sword_purple"
+  ]
+}

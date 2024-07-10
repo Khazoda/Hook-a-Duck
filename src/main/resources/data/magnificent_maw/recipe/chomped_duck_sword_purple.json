@@ -1,0 +1,12 @@
+{
+  "type": "magnificent_maw:sword_swallowing",
+  "nutrition": 8,
+  "result": {
+    "count": 1,
+    "id": "duck:duck_pop"
+  },
+  "saturationModifier": 0.3,
+  "swallowable": {
+    "item": "duck:duck_sword_purple"
+  }
+}
