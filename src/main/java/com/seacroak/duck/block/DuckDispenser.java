@@ -89,9 +89,9 @@ public class DuckDispenser extends HorizontalFacingBlock implements Waterloggabl
       this.startCooldown(state, world, pos, 50);
       if (world.isClient()) {
         DuckNetworking.playSoundOnClient(SoundRegistry.PULL, world, pos, 1f, 1f);
+      } else if (!world.isClient()) {
         if (stack.isOf(TerrificTickets.TOKEN)) stack.decrement(10);
         if (stack.isOf(TerrificTickets.PASSCARD)) TerrificTicketsApi.removeTokens(stack, 10);
-      } else if (!world.isClient()) {
         SoundPayload.sendPlayerPacketToClients((ServerWorld) world, new SoundPayload(player.getUuid(), pos, SoundRegistry.PULL, 1f));
       }
       this.startDispensingTimer(state, world, pos, 40);
